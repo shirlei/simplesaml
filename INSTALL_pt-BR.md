@@ -8,7 +8,7 @@ Siglas e abreviações:
 
 **SP**: Service Provider ou Provedor de Serviço
 
-1. Baixar a versão atual do site do desenvolvedor:
+## Baixar a versão atual do site do desenvolvedor:
 
 https://simplesamlphp.org/download
 
@@ -21,8 +21,9 @@ Descompactar o arquivo baixado:
 
 *Para facilitar, renomear a pasta descompactada para apenas simplesaml.*
 
+## Configurar o SSP no servidor web
 
-2. Na minha experiência, a melhor coisa a fazer nesse momento é servir o simplesaml através de algum servidor web, pois assim você terá condições de utilizar algumas ferramentas dele mesmo para auxiliar na configuração.
+Na minha experiência, a melhor coisa a fazer nesse momento é servir o SSP através de algum servidor web, pois assim você terá condições de utilizar algumas ferramentas dele mesmo para auxiliar na configuração.
 
 Supondo o uso do Apache, a configuração é tão simples quanto  adicionar as seguintes diretivas na seção VirtualHost da sua configuração do apache:
 
@@ -41,11 +42,11 @@ Supondo o uso do Apache, a configuração é tão simples quanto  adicionar as s
 
 Estando tudo certo, você deverá ser capaz de conseguir acessar a página inicial do SSP através do navegador, através do link http://<endereco_servico>/simplesaml/
 
-3. Configurando o SSP como provedor de serviço 
+## Configurar o SSP como SP
 
 Documentação disponível em: https://simplesamlphp.org/docs/stable/simplesamlphp-sp#section_1
 
-**a) Editar o arquivo config/authsources.php**
+### Editar o arquivo config/authsources.php
 
 Localizar a seção 
 
@@ -64,13 +65,13 @@ e se desejar, alterar o nome 'default-sp' para outro mais significativo, por exe
 Esse é o nome que vai ficar visível por exemplo na página de autenticações disponíveis, na tela de autenticadores disponíveis para teste na página inicial do simplesaml.
 Para o tutorial em questão, manterei o nome 'default-sp'.
 
-**b) Habilitar/criar um certificado para o seu provedor de serviço**
+### Habilitar/criar um certificado para o seu provedor de serviço
 
-b.1 ) criar um diretório para o certificado:
+#### a) Criar um diretório para o certificado:
 
 `mkdir cert`
 
-b.2) Gerar o certificado
+#### b) Gerar o certificado
 
 `cd cert`
 
@@ -78,7 +79,7 @@ b.2) Gerar o certificado
 
 *Obs.: serão requisitadas algumas informações, como país, estado e outras, que devem ser preenchidas de acordo com o caso.*
 
-b.3) Editar o arquivo config/authsources.php
+#### c) Editar o arquivo config/authsources.php
 
 Localizar a seção 
 
@@ -96,7 +97,7 @@ ou qual seja o nome que foi definido ao invés de 'default-sp' e adicionar as in
     ),
 
 
-**c) Adicionar IdPs ao SP**
+### Adicionar IdPs ao SP
 
 O provedor de serviço precisa conhecer os provedores de identidade disponíveis. Essa informação é configurada no arquivo 
 metadata/saml20-idp-remote.php
@@ -114,11 +115,11 @@ Após fazer a conversão, a ferramenta apresenta vários resultados, usar o que 
 **Atenção**: o texto convertido não tem as tags de abertura e fechamento de código php e você deve acrescentar no arquivo final.
 
 
-Neste momento, ao clicar na aba Autentincação -> Test configured authentication sources -> default-sp (ou o nome fornecido), deve aparecer a lista de IdPs disponíveis.
+Neste momento, ao clicar na aba Autenticação -> Test configured authentication sources -> default-sp (ou o nome fornecido), deve aparecer a lista de IdPs disponíveis.
 
 Se você tentar conectar em algum deles, deve receber uma mensagem de erro, pois a relação de confiança ainda não foi estabelecida.
 
-d) Estabelecer a relação de confiança com os IdPs, aka Enviar metadados do seu SP para a federação
+## Estabelecer a relação de confiança com os IdPs, aka Enviar metadados do seu SP para a federação
 
 Agora, para que seja possível conectar com algum dos IdPs, é necessário estabelecer a relação de confiança.
 Para tal, é necessário obter o arquivo XML com o metadado do SP e enviar para o administrador da federação que você deseja estabelecer relação de confiança.
