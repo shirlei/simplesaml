@@ -15,6 +15,8 @@ $config = array(
     // and Shibboleth 1.3 IdPs.
     'default-sp' => array(
         'saml:SP',
+        'privatekey' => 'saml.pem',
+        'certificate' => 'saml.crt',
 
         // The entity ID of this SP.
         // Can be NULL/unset, in which case an entity ID is generated based on the metadata URL.
@@ -27,6 +29,16 @@ $config = array(
         // The URL to the discovery service.
         // Can be NULL/unset, in which case a builtin discovery service will be used.
         'discoURL' => null,
+        'contacts' => array(
+        array(
+            'contactType'       => 'support',
+            'emailAddress'      => 'shirlei@gmail.com',
+            'givenName'         => 'Shirlei',
+            'surName'           => 'Chaves',
+           # 'telephoneNumber'   => '+31(0)12345678',
+           # 'company'           => 'Example Inc.',
+        )
+    ),
 
         /*
          * WARNING: SHA-1 is disallowed starting January the 1st, 2014.
