@@ -112,9 +112,6 @@ Uma forma simples de obter o conteúdo é mandar exibir o código fonte da pági
 
 Após fazer a conversão, a ferramenta apresenta vários resultados, usar o que for para saml20-idp-remote.
 
-**Atenção**: o texto convertido não tem as tags de abertura e fechamento de código php e você deve acrescentar no arquivo final.
-
-
 Neste momento, ao clicar na aba Autenticação -> Test configured authentication sources -> default-sp (ou o nome fornecido), deve aparecer a lista de IdPs disponíveis.
 
 Se você tentar conectar em algum deles, deve receber uma mensagem de erro, pois a relação de confiança ainda não foi estabelecida.
