@@ -12,7 +12,7 @@ Siglas e abreviações:
 
 https://simplesamlphp.org/download
 
-*Obs.: o tutorial atual foi baseada na última versão quando da construção do mesmo, a 1.13.2.*
+*Obs.: o tutorial atual foi baseado na última versão quando da construção do mesmo, a 1.13.2.*
 
 
 Descompactar o arquivo baixado:
@@ -138,6 +138,26 @@ Para que suas informações de contato apareçam nesse xml, é necessário ter i
 Após receber a confirmação de que o metadados do seu SP foi incluído (a relação de confiança foi estabelecida), você deverá conseguir fazer a conexão em algum dos IdPs disponíveis que você tenha usuário e senha.
 Neste ponto, o SSP está configurado e operacional como um SP.
 
+
+## Configurar o SSP como IdP
+
+Documentação disponível em https://simplesamlphp.org/docs/stable/simplesamlphp-idp
+
+### Editar o arquivo config/config.php
+
+Habilitar a funcionalidade de provedor de identidade. No nosso caso, vamos habilitar a opção para a versão 2 do SAML.
+
+Localizar a entrada:
+
+    'enable.saml20-idp' => false,
+
+e mudar de false para true:
+
+    'enable.saml20-idp' => true,
+
+### Configurar o modo como os usuários vão se conectar ao IdP
+
+O SSP permite o uso de diversos módulos de autenticação, incluindo por exemplo desde uma lista fixa de usuário e senha, facebook ID, autenticação Ldap, até um modo *bridging*, usando um SAML IdP. Essa última opção cobriremos mais tarde. Nessa primeira parte do tutorial de configuração do IdP, vamos usar o exemplo do tutorial oficial, o módulo exampleauth:UserPass, o qual autentica contra uma lista de usuários e senhas.
 
 
 [1] https://wiki.rnp.br/pages/viewpage.action?pageId=69961107
