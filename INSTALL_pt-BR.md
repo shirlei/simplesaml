@@ -157,7 +157,49 @@ e mudar de false para true:
 
 ### Configurar o modo como os usuários vão se conectar ao IdP
 
-O SSP permite o uso de diversos módulos de autenticação, incluindo por exemplo desde uma lista fixa de usuário e senha, facebook ID, autenticação Ldap, até um modo *bridging*, usando um SAML IdP. Essa última opção cobriremos mais tarde. Nessa primeira parte do tutorial de configuração do IdP, vamos usar o exemplo do tutorial oficial, o módulo exampleauth:UserPass, o qual autentica contra uma lista de usuários e senhas.
+O SSP permite o uso de diversos módulos de autenticação, incluindo por exemplo desde uma lista fixa de usuário e senha, facebook ID e autenticação Ldap, até um modo *bridging*, usando um SAML IdP. Essa última opção cobriremos mais tarde.
+
+Nessa primeira parte do tutorial de configuração do IdP, vamos utilizar como exemplo o módulo *authcrypt:Htpasswd*, o qual autentica usuário e senha contra um arquivo .htpasswd (maiores informações em https://httpd.apache.org/docs/2.2/programs/htpasswd.html).
+
+#### Habilitar o módulo
+
+O módulo *authcrypt:Htpasswd* não vem habilitado por padrão e precisa ser habilitado. Para tal, basta criar um arquivo chamado "enable" dentro do diretório do módulo:
+
+`touch modules/authcrypt/enable`
+
+#### Editar config/authsources.php
+
+Além de habilitar o módulo, é necessário configurar a fonte de autenticação. Edite o arquivo *config/authsources.php*
+
+Localize a seção 
+
+    /*
+    'htpasswd' => array(
+        'authcrypt:Htpasswd',
+        'htpasswd_file' => '/var/www/simplesamlphp/.htpasswd',
+        'static_attributes' => array(
+            'eduPersonAffiliation' => array('member', 'employee'),
+            'Organization' => array('University of Foo'),
+        ),
+    ),
+    */
+    
+remova a marcação de texto *commented out* (remover as linhas com /* e */) e preencha os dados necessários de acordo com a sua configuração (endereço do htpasswd_file, por exemplo).
+
+#### Criar o arquivo .htpasswd
+
+Se você não tiver o programa htpasswd instalado no seu servidor, instale-o com o seguinte comando:
+
+`# apt-get install apache2-utils`
+
+Após instalá-lo, crie o arquivo e adicione um usuário, com o seguinte comando (você será solicitado a informar uma senha para esse usuário):
+
+`htpasswd -c .htpasswd johndoe`
+
+
+
+Após finalizar as configurações acima, o SSP estará configurado como IdP. Para testar, acesse a página da instalação do SSP (http://<host>/simplesaml/module.php/core/frontpage_welcome.php) e clique na aba Autenticação, depois em *Test configured authentication sources*. Deve haver a opção *htpasswd*, na qual, ao clicar, você será solicitado a informar usuário e senha. Informe o usuário e senha cadastrado com o comando htpasswd. Se tudo estiver correto, você será direcionado para a página pós autenticação, na qual serão exibidos seus atributos.
+
 
 
 [1] https://wiki.rnp.br/pages/viewpage.action?pageId=69961107
