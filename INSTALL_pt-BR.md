@@ -154,6 +154,19 @@ Localizar a entrada:
 e mudar de false para true:
 
     'enable.saml20-idp' => true,
+    
+### Gerar chave privada e certificado
+
+É possível utilizar o comando exemplo fornecido no site da documentação do ssp (conforme em https://simplesamlphp.org/docs/stable/simplesamlphp-idp#section_4), para gerar uma chave privada e o correspondente certificado auto assinado:
+
+    openssl req -newkey rsa:2048 -new -x509 -days 3652 -nodes -out example.org.crt -keyout example.org.pem
+
+Editar o arquivo metadata/saml20-idp-hosted.php e fornecer os valores para private key e certificate conforme o exemplo a seguir:
+
+    'privatekey' => 'example.org.pem',
+    'certificate' => 'example.org.crt',
+
+Lembre-se de colocar os arquivos dentro do diretório definido em config/config.php, na variável *certdir*.
 
 ### Configurar o modo como os usuários vão se conectar ao IdP
 
